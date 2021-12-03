@@ -11,7 +11,7 @@ SECRET_KEY = env(
     default="CW3Cw3zkxAYKJ4FDmdGXxnZWtNPovPPfA1hnZcdu5JAktJJK2jb3D9KyOVqL7OGI",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "3.121.74.182" ]
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -56,3 +56,9 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Basic": {"type": "basic"},
+        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"},
+    }
+}
