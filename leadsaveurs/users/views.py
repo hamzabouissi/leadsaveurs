@@ -58,15 +58,18 @@ class UserViewSet(viewsets.ModelViewSet):
     }
     queryset = User.objects.all()
 
+    def get_serializers_class(self):
+        return self.serializers_class.get(self.action,SerializerNone)
+
     # def get_queryset(self, *args, **kwargs):
     #     return self.queryset.filter(id=self.request.user.id)
 
-    @action(detail=False, methods=["GET"],permission_classess=(IsAuthenticated,))
+    @action(detail=False, methods=["GET"],permission_classes=(IsAuthenticated,))
     def me(self, request):
         serializer = UserSerializerOut(request.user, context={"request": request})
         return Response(status=status.HTTP_200_OK, data=serializer.data)
 
-    @action(detail=False, methods=["POST"], permission_classess=(AllowAny,))
+    @action(detail=False, methods=["POST"], permission_classes=(AllowAny,))
     def login(self, request):
         ser = UserLoginSerializer(data=request.data)
         ser.is_valid(raise_exception=True)
